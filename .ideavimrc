@@ -1,0 +1,56 @@
+"" Source your .vimrc
+"source ~/.vimrc
+
+"" -- Suggested options --
+" Show a few lines of context around the cursor. Note that this makes the
+" text scroll if you mouse-click near the start or end of the window.
+set mouse=a  " enable mouse
+set encoding=utf-8
+set number
+set noswapfile
+set scrolloff=7
+set paste
+
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+set fileformat=unix
+filetype indent on      " load filetype-specific indent files
+
+" Delete word backward
+nnoremap dw vb"_d
+
+" Tabs
+nnoremap H gT
+nnoremap L gt
+
+map <C-S-h> :tabm -1<cr>
+map <C-S-l> :tabm +1<cr>
+
+nnoremap <C-w> :tabc <cr>
+
+" esc alias
+inoremap jk <esc>
+
+" sync clipboard
+nnoremap yy "+yy
+vnoremap y "+y
+
+nnoremap p "+p
+vnoremap p "+p
+nnoremap P "+P
+vnoremap P "+P
+inoremap <C-v> <C-r>*
+
+" add deleted item to clipboard
+nnoremap dd "+dd
+vnoremap dd "+dd
+nnoremap d "+d
+vnoremap d "+d
+
+" Do incremental searching.
+set incsearch
+set hlsearch
+nnoremap ,<space> :nohlsearch<CR>
