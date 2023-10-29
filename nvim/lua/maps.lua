@@ -36,4 +36,4 @@ keymap.set('n', '<C-w><up>', '<C-w>+')
 keymap.set('n', '<C-w><down>', '<C-w>-')
 
 -- Remove search highlight
-keymap.set('n', 'nohlsearch', '<space>')
+vim.api.nvim_set_keymap('n', ',<space>', ':nohlsearch<CR>', { noremap = true, silent = true })
