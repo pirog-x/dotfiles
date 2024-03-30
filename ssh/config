@@ -1,0 +1,35 @@
+Host github.com
+    HostName github.com
+    AddKeysToAgent yes
+    IdentityFile ~/.ssh/github_ed25519
+
+# V3 Hat
+Host pikvm-v3
+    User root
+    HostName 100.116.165.53
+    Port 22
+    AddKeysToAgent yes
+    IdentityFile ~/.ssh/pikvm
+
+# V4-1 PLUS
+Host pikvm-v4-1
+    User root
+    HostName 100.127.63.23
+    Port 22
+    AddKeysToAgent yes
+    IdentityFile ~/.ssh/pikvm
+
+# V4-2 PLUS
+Host pikvm-v4-2
+    User root
+    HostName 100.106.30.25
+    Port 22
+    AddKeysToAgent yes
+    IdentityFile ~/.ssh/pikvm
+
+Host pikvm-v4-2-wg
+    User root
+    HostName 10.0.0.2
+    Port 22
+    AddKeysToAgent yes
+    IdentityFile ~/.ssh/pikvm
