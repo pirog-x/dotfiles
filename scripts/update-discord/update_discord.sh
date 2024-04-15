@@ -1,5 +1,9 @@
 #!/bin/zsh
 
+set -e
+trap 'dunstify "Something do wrong in update_discord script."' ERR
+
+
 DISCORD_URL="https://discord.com/api/download?platform=linux&format=tar.gz"
 DOWNLOAD_DIR="$HOME/Downloads"
 DISCORD_HOME="/opt/discord"
@@ -20,3 +24,4 @@ echo "Cleaning up..."
 rm -rf "$TEMP_DIR"
 
 dunstify "Discord has been updated successfully!"
+

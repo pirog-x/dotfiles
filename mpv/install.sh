@@ -1,6 +1,11 @@
 #!/bin/sh
 
-# sudo dnf install mpv
+mpv_config=~/.config/mpv
 
-mkdir -p ~/.config/mpv
-cp mpv.conf ~/.config/mpv
+
+if [ ! -d $mpv_config ]; then
+    mkdir -p $mpv_config
+fi
+
+cp mpv.conf $mpv_config
+
