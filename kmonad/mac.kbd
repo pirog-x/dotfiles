@@ -1,0 +1,45 @@
+(defcfg
+  input  (device-file "$KBD_DEV")
+  output (uinput-sink "KMonad MAC Keyboard nr $RANDOM")
+  fallthrough true
+)
+
+(defsrc
+caps  a s d f g   h j k l ; 
+                    n m , . 
+               spc
+)
+
+(defalias
+    ctl_a (tap-hold-next-release 210 a lctl)
+    alt_s (tap-hold-next-release 210 s lalt)
+    met_d (tap-hold-next-release 210 d lmet)
+    sft_f (tap-hold-next-release 210 f lsft)
+
+    sft_j (tap-hold-next-release 210 j rsft)
+    met_k (tap-hold-next-release 210 k rmet)
+    alt_l (tap-hold-next-release 210 l lalt)
+    ctl_; (tap-hold-next-release 210 ; rctl)
+
+    spc_nav (tap-hold-next-release 210 spc (layer-toggle nav))
+  caps_media             (tap-hold-next-release 210 esc (layer-toggle media))
+    change_layout (around alt spc)
+)
+
+(deflayer homerowmods
+  @caps_media  @ctl_a   @alt_s   @met_d   @sft_f   g   h   @sft_j   @met_k   @alt_l   @ctl_;
+  _        _        _        _              
+                                       @spc_nav
+)
+
+(deflayer nav
+ _   lctl lalt lmet lsft g     left  down  up   right @change_layout
+                               home  pgdn  pgup end
+                            _
+)
+
+(deflayer media
+     _   _ _ _ _ _       _  vold  volu  mute _ 
+                         _  brdn  brup  _ 
+                    _
+)

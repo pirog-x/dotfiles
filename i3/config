@@ -1,0 +1,311 @@
+# i2 config file (v4)
+# vim:fileencoding=utf-8:foldmethod=marker
+
+# Default setup & Variables {{{
+
+set $mod Mod4
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:Hack 10
+
+# Start XDG autostart .desktop files using dex. See also
+# https://wiki.archlinux.org/index.php/XDG_Autostart
+exec --no-startup-id dex-autostart --autostart --environment i3
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+set $refresh_i3status killall -SIGUSR1 i3status
+
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# }}}
+
+# Autostart {{{
+
+exec setxkbmap -option caps:ctrl_modifier
+exec xmodmap -e "keycode 164 = Caps_Lock"
+exec pkill unclutter ; unclutter &
+exec_always --no-startup-id ~/.config/polybar/launch.sh
+# exec_always feh --bg-fill /home/pirog/Pictures/wallpaper/krakow
+# exec_always feh --bg-fill --randomize /home/pirog/Pictures/wallpaper/forest
+exec_always feh --bg-fill /home/pirog/Pictures/wallpaper/forest/dan-otis-OYFHT4X5isg-unsplash.jpg
+
+exec --no-startup-id ~/.config/scripts/battery/battery-low-alert.sh
+
+exec --no-startup-id flameshot
+exec --no-startup-id pkill -9 picom ; picom
+exec --no-startup-id pkill -9 dunst ; dunst
+
+# hide the mouse coursor after 3 seconds of innactivity
+exec --no-startup-id unclutter -idle 5
+exec --no-startup-id xsetroot -cursor_name left_ptr
+exec --no-startup-id setxkbmap -option caps:ctrl_modifier
+exec --no-startup-id xmodmap -e "keycode 164 = Caps_Lock"
+exec --no-startup-id greenclip daemon > /dev/null
+exec --no-startup-id xset b off
+
+
+exec --no-startup-id i3-msg 'workspace 1; exec --no-startup-id /bin/google-chrome'
+exec --no-startup-id /bin/telegram
+exec --no-startup-id ~/.config/kmonad/kmonad-script.sh --startup
+exec --no-startup-id # exec --no-startup-id /bin/gnome-pomodoro
+
+# }}}
+
+# Bindsym {{{
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# change next/prev workspace; 0x2c = comma
+bindsym $mod+m workspace prev
+bindsym $mod+0x2c workspace next
+
+# resize window (you can also use the mouse for that)
+bindsym $mod+ctrl+h resize shrink width  50 px
+bindsym $mod+ctrl+j resize grow height   50 px
+bindsym $mod+ctrl+k resize shrink height 50 px
+bindsym $mod+ctrl+l resize grow width    50 px
+
+bindsym $mod+ctrl+Left resize shrink width 50 px
+bindsym $mod+ctrl+Down resize grow height  50 px
+bindsym $mod+ctrl+Up resize shrink height  50 px
+bindsym $mod+ctrl+Right resize grow width  50 px
+
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+bindsym $mod+b exec --no-startup-id "google-chrome"
+
+bindsym Print exec --no-startup-id "flameshot gui"
+bindsym shift+Print exec --no-startup-id "flameshot full -c"
+
+bindsym $mod+d exec --no-startup-id nemo
+
+bindsym $mod+v exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard 
+
+# bindsym $mod+v exec --no-startup-id "copyq -e 'if (visible()) hide(); else showAt(100, 100)'"
+
+# start a terminal
+bindsym $mod+Return exec --no-startup-id kitty
+
+# kill focused window
+bindsym $mod+q kill
+
+# start rofi
+bindsym Mod1+space exec --no-startup-id rofi -show run
+
+# dmoji
+bindsym $mod+semicolon exec --no-startup-id dmoji
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left  move left  50 px
+bindsym $mod+Shift+Down  move down  50 px
+bindsym $mod+Shift+Up    move up    50 px
+bindsym $mod+Shift+Right move right 50 px
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# Change brightness
+bindsym XF86MonBrightnessUp exec --no-startup-id brillo -q -A 5
+bindsym XF86MonBrightnessDown exec --no-startup-id brillo -q -U 5
+
+# Enable night mode
+bindsym Shift+XF86MonBrightnessUp exec --no-startup-id "xcalib -clear && xcalib -red 1.7 1 64 -green 1.7 1 57 -blue 1.7 1 28 -alter"
+bindsym Shift+XF86MonBrightnessDown exec --no-startup-id "xcalib -clear"
+
+# Uestart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# Go to the pervios workspace
+bindsym $mod+Tab workspace back_and_forth
+
+# }}}
+
+# Windows {{{
+
+# New container will be use tabbed mode by default
+workspace_layout tabbed
+
+# Remove title
+default_border pixel 1
+default_floating_border pixel 1
+
+# Border color
+
+# border       - title border in $mod+w mode
+# background   - background color of the window's title
+# text         - text color of the window's title
+# indicator    - thing for horizontal / vertical mode
+# child_border - main border color (whole window color)
+
+# class                 border  backgr. text    indicator child_border
+client.focused          #ab882a #ab882a #000000 #ab882a   #ab882a
+client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+client.background       #ffffff
+popup_during_fullscreen smart
+
+
+
+for_window [class="TelegramDesktop"] move container to workspace $ws3
+for_window [class="Gnome-pomodoro"] move container to workspace $ws5
+for_window [instance="^copyq$" class="^copyq$"] border pixel 1, floating enable
+for_window [class="pavucontrol"] border pixel 1, floating enable, move position 800px 39px, resize set 800px 600px
+
+
+
+# move tiling windows via drag & drop by left-clicking into the title bar,
+# or left-clicking anywhere into the window while holding the floating modifier.
+tiling_drag modifier titlebar
+
+
+# Remove child_border when is tabbed mode
+smart_borders on
+
+# }}}
+
+# Touchpad Config libinput {{{
+
+set $touchpad "SynPS/2 Synaptics TouchPad"
+
+# Enable tapping and dragging
+exec xinput set-prop $touchpad "libinput Tapping Enabled" 1
+exec xinput set-prop $touchpad "libinput Tapping Drag Enabled" 1
+
+# Enable natural scrolling
+exec xinput set-prop $touchpad "libinput Natural Scrolling Enabled" 1
+
+# Enable two-finger scrolling
+exec xinput set-prop $touchpad "libinput Scroll Methods Available" 2
+exec xinput set-prop $touchpad "libinput Scroll Method Enabled" 1
+
+# Adjust scrolling pixel distance for smoother scrolling
+exec xinput set-prop $touchpad "libinput Scrolling Pixel Distance" 40
+
+# Disable high-resolution scrolling for stability
+exec xinput set-prop $touchpad "libinput High Resolution Wheel Scroll Enabled" 0
+
+# Set adaptive pointer acceleration and slow down movement
+exec xinput set-prop $touchpad "libinput Accel Profile Enabled" 1, 0
+exec xinput set-prop $touchpad "libinput Accel Speed" -0.2
+
+# Enable horizontal scrolling (optional, or disable if not needed)
+exec xinput set-prop $touchpad "libinput Horizontal Scroll Enabled" 1
+
+# Disable middle-click emulation
+exec xinput set-prop $touchpad "libinput Middle Emulation Enabled" 0
+
+#Device 'SynPS/2 Synaptics TouchPad':
+#	Device Enabled (174):	1
+#	Coordinate Transformation Matrix (176):	1.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 1.000000
+#	libinput Tapping Enabled (302):	1
+#	libinput Tapping Enabled Default (303):	0
+#	libinput Tapping Drag Enabled (304):	1
+#	libinput Tapping Drag Enabled Default (305):	1
+#	libinput Tapping Drag Lock Enabled (306):	0
+#	libinput Tapping Drag Lock Enabled Default (307):	0
+#	libinput Tapping Button Mapping Enabled (308):	1, 0
+#	libinput Tapping Button Mapping Default (309):	1, 0
+#	libinput Natural Scrolling Enabled (310):	1
+#	libinput Natural Scrolling Enabled Default (311):	0
+#	libinput Disable While Typing Enabled (312):	1
+#	libinput Disable While Typing Enabled Default (313):	1
+#	libinput Scroll Methods Available (314):	1, 1, 0
+#	libinput Scroll Method Enabled (315):	1, 0, 0
+#	libinput Scroll Method Enabled Default (316):	1, 0, 0
+#	libinput Click Methods Available (317):	1, 1
+#	libinput Click Method Enabled (318):	1, 0
+#	libinput Click Method Enabled Default (319):	1, 0
+#	libinput Middle Emulation Enabled (320):	0
+#	libinput Middle Emulation Enabled Default (321):	0
+#	libinput Accel Speed (322):	-0.400000
+#	libinput Accel Speed Default (323):	0.000000
+#	libinput Accel Profiles Available (324):	1, 1, 1
+#	libinput Accel Profile Enabled (325):	1, 0
+#	libinput Accel Profile Enabled Default (326):	1, 0, 0
+#	libinput Accel Custom Fallback Points (327):	<no items>
+#	libinput Accel Custom Fallback Step (328):	0.000000
+#	libinput Accel Custom Motion Points (329):	<no items>
+#	libinput Accel Custom Motion Step (330):	0.000000
+#	libinput Accel Custom Scroll Points (331):	<no items>
+#	libinput Accel Custom Scroll Step (332):	0.000000
+#	libinput Left Handed Enabled (333):	0
+#	libinput Left Handed Enabled Default (334):	0
+#	libinput Send Events Modes Available (287):	1, 1
+#	libinput Send Events Mode Enabled (288):	0, 0
+#	libinput Send Events Mode Enabled Default (289):	0, 0
+#	Device Node (290):	"/dev/input/event5"
+#	Device Product ID (291):	2, 7
+#	libinput Drag Lock Buttons (335):	<no items>
+#	libinput Horizontal Scroll Enabled (336):	1
+#	libinput Scrolling Pixel Distance (337):	40
+#	libinput Scrolling Pixel Distance Default (338):	15
+#	libinput High Resolution Wheel Scroll Enabled (339):	0
+
+
+# }}}
+
